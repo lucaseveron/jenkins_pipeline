@@ -22,7 +22,7 @@ pipeline {
  
         stage('Descarga de la aplicacion desde Github') {
             steps {
-                sh 'git clone https://github.com/gastonbarbaccia/TP6_App_docker'
+                sh 'git clone https://github.com/gastonbarbaccia/TP6_App_docker.git'
                 
             }
         }
