@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {     
+        DOCKERHUB_CREDENTIALS= credentials('dockerhubcredentials')     
+    } 
     stages {
         stage('Eliminado de archivos viejo') {
             steps {
@@ -27,13 +30,13 @@ pipeline {
    
         stage('Creando la imagen') {
             steps {
-                sh 'cd TP6_App_docker && docker build -t lucas/appjava:v1.0 .'
+                sh 'cd TP6_App_docker && docker build -t lucaseveron/appjava:v1.0 .'
             }
         }
         
          stage('Ejecutando el contenedor') {
             steps {
-                sh 'docker run -p 80:80 -p 7080:7080 -d --name app_front lucas/appjava:v1.0'
+                sh 'docker run -p 80:80 -p 7080:7080 -d --name app_front lucaseveron/appjava:v1.0'
             }
         }
         
@@ -43,5 +46,20 @@ pipeline {
             }
         }
         
+        stage('Docker login') {
+            steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                 
+	            echo 'Login Completed' 
+            }
+        }
+        
+        stage('Docker push') {
+            steps {
+                sh 'docker push lucaseveron/appjava:v1.0'                 
+                echo 'Push Image Completed'    
+            }
+        }
+
     }
+    
 }
