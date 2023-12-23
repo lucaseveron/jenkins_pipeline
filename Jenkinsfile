@@ -61,7 +61,7 @@ pipeline {
         }
         stage('Trivy Scan') {
             steps {
-                sh 'trivy image lucaseveron/appjava:v1.0'
+                sh 'trivy image lucaseveron/appjava:v1.0 '
                 
                
                 
