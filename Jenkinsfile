@@ -59,6 +59,14 @@ pipeline {
                 echo 'Push Image Completed'    
             }
         }
+        stage('Trivy Scan') {
+            steps {
+                sh 'trivy image lucaseveron/appjava:v1.0 '
+                
+               
+                
+            }
+        }
 
     }
     
