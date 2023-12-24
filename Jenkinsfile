@@ -67,6 +67,12 @@ pipeline {
                 
             }
         }
+        stage('Sonar Cloud') {
+            steps {
+                sh "docker run --rm  -e SONAR_HOST_URL='https://sonarcloud.io' -e SONAR_TOKEN='8cf253a39428a5414f3162beb05a95e70424fc61'   -v '/var/lib/jenkins/workspace/TP10/:/usr/src'   sonarsource/sonar-scanner-cli -Dsonar.organization='lucas-proyecto' -Dsonar.projectKey='TP10'"
+            }
+            
+        }
 
     }
     
